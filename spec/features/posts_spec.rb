@@ -50,6 +50,7 @@ describe 'Posts', type: 'feature' do
       @post.categories << @category
       @user = User.create(username: 'RealBigFish')
       @comment1 = Comment.create(content: "This was great!", user: @user, post: @post)
+      
     end
 
     it 'should display the title' do

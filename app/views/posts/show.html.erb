@@ -1,1 +1,46 @@
 
+<%=@post.title%>
+<%@post.categories.each do |category|%>
+<%=category.name%>
+<%end%>
+
+<%=@post.content%>
+
+<%@comment = Comment.new%>
+<%= form_for(@comment) do |f| %>
+<%= f.text_area :content %>
+<%= f.hidden_field :post_id, :value => @post.id %>
+<%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Select A User'} %>
+
+
+
+<input type="text" name="comment[user_attributes][username]" id="comment_user_attributes_username"> 
+
+ <%= f.submit %>
+<% end %>
+
+
+<%@post.comments.each do |comment|%>
+<br>
+<br>
+<%="#{comment.user.username} says: #{comment.content}"%>
+<%end%>
+
+<%commenters = []%>
+<%@post.comments.each do |comment|%>
+<%commenters << comment.user%>
+<%end%>
+
+<%commenters.uniq.each do |commenter|%>
+<br>
+<br>
+<%= link_to commenter.username, user_path(commenter)%>
+<%end%>
+
+
+
+
+
+
+
+
